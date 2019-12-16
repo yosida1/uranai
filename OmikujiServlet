@@ -1,0 +1,81 @@
+package uranai;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class OmikujiServlet
+ */
+@WebServlet("/OmikujiServlet")
+public class OmikujiServlet extends HttpServlet {
+
+	private static final long serialVersionUID=1L;
+public OmikujiServlet() {
+	super();
+}
+
+
+
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+UranaiBean record=new UranaiBean();
+    	Connection conn=null;
+    	Statement stmt=null;
+    	ResultSet rs;
+ArrayList<String> list=new ArrayList<String>();
+
+    	try {
+	Class.forName("com.mysql.jdbc.Driver");
+	conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/sampledb?serverTimezone=JST","user","1145");
+	stmt=conn.createStatement();
+	rs=stmt.executeQuery("SELECT * FROM FOURTUNE ORDER BY rand() limit 1");
+
+
+	while(rs.next()) {
+		String s="<td>"+rs.getString("FOURTUNE")+"</td>"
+	+"<td>"+rs.getString("OMIKUJI")+"</td>"
+			 +"<td>"+rs.getInt("POINT")+"</td>";
+list.add(s);
+
+
+	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out=response.getWriter();
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<body>");
+    out.println("<table>");
+    for(String  str:list) {
+    	out.println("<tr>"+str+"<tr>");
+    }
+    	out.println("</table>");
+        out.println("</body>");
+        out.println("</head>");
+        out.println("</html>");
+
+
+    }
+
+
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+}
