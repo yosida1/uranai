@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>おみくじ追加する</title>
+</head>
+<body>
+<h1>追加</h1>
+<form action="AddOmikujiServlet" method="get">
+<table>
+<tr>
+<td>Fourtune</td>
+<td><input type="text" name="fourtune" maxlength="50"></td>
+
+</tr>
+<tr>
+
+<td>Omikuji</td>
+<td><input type="text" name="omikuji" maxlength="5"></td>
+</tr>
+<tr>
+<td>Point</td>
+<td><input type="text" name="point" maxlength="3"></td>
+</tr>
+
+<tr>
+<td><input type="submit" value="登録"></td>
+
+</tr>
+
+<tr>
+<td><a href="index.html">戻る</a>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
