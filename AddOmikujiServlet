@@ -1,0 +1,76 @@
+package uranai;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class AddOmikuji
+ */
+@WebServlet("/AddOmikujiServlet")
+public class AddOmikujiServlet extends HttpServlet {
+
+
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String fourtune=null;
+		String omikuji=null;
+		int point=0;
+
+		try {
+			fourtune=request.getParameter("fourtune");
+			omikuji=request.getParameter("omikuji");
+			point=Integer.parseInt(request.getParameter("point"));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+
+	UranaiBean record=new UranaiBean();
+record.setFourtune(fourtune);
+record.setOmikuji(omikuji);
+record.setPoint(point);
+
+
+
+	Connection conn = null;
+	Statement stmt=null;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+
+		String sql="INSERT INTO FOURTUNE(fourtune,omikuji,point) VALUES('"+record.getFourtune()+"','"+record.getOmikuji()+"','"+record.getPoint()+"')";
+		conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/sampledb?serverTimezone=JST","user","1145");
+		stmt=conn.createStatement();
+		stmt.executeUpdate(sql);
+
+
+	}catch(Exception e) {
+		e.printStackTrace();
+	}
+	response.setContentType("text/html; charset=UTF-8");
+    PrintWriter out=response.getWriter();
+    out.println("<html>");
+    out.println("<head>");
+    out.println("<body>");
+out.println("<table>");
+out.println("追加しました。");
+    out.println("</table>");
+    out.println("</body>");
+    out.println("</head>");
+    out.println("</html>");
+
+	}
+
+
+
+}
