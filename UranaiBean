@@ -1,0 +1,45 @@
+package uranai;
+
+import java.io.Serializable;
+
+public class UranaiBean implements Serializable{
+
+
+	private String fourtune;
+	private String omikuji;
+	private int point;
+
+	public UranaiBean() {
+		super();
+
+	}
+public String getFourtune() {
+	return fourtune;
+
+}
+
+public void setFourtune(String fourtune) {
+	this.fourtune=fourtune;
+}
+
+public String getOmikuji() {
+	return omikuji;
+}
+
+public void setOmikuji(String omikuji) {
+	this.omikuji=omikuji;
+
+}
+
+public int getPoint() {
+	return point;
+
+}
+
+public void setPoint(int point) {
+	this.point=point;
+}
+
+
+}
+
